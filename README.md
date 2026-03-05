@@ -16,28 +16,28 @@ A comprehensive demo app showcasing every major Inertia.js v3 feature. Built on 
 
 A small working app with dashboard, contacts, organizations, and notes — demonstrating real-world Inertia patterns like infinite scroll, deferred props, search, favorites, and file uploads.
 
-### Feature Showcase (38 pages)
+### Feature Showcase
 
 Dedicated pages organized by category, each demonstrating specific Inertia v3 features with interactive demos:
 
 | Category | Pages |
 |---|---|
-| **Forms** | useForm, Form Component, File Uploads, Validation, Precognition, Optimistic Updates |
-| **Navigation** | Links & Methods, Preserve State, Preserve Scroll, View Transitions, History Management, Async Requests |
-| **Data Loading** | Deferred Props, Partial Reloads, Infinite Scroll, When Visible, Polling, Prop Merging, Once Props |
+| **Forms** | useForm, Form Component, File Uploads, Validation, Precognition, Optimistic Updates, useFormContext, Dotted Keys, Wayfinder |
+| **Navigation** | Links, Preserve State, Preserve Scroll, View Transitions, History Management, Async Requests, Instant Visits, URL Fragments, Manual Visits, Redirects, Scroll Management |
+| **Data Loading** | Deferred Props, Partial Reloads, Infinite Scroll, When Visible, Polling, Prop Merging, Optional Props, Once Props |
 | **Prefetching** | Link Prefetch, Stale While Revalidate, Manual Prefetch, Cache Management |
-| **State Management** | Remember, History Encryption, Flash Data, Shared Props, Layout Props |
-| **Layouts & Head** | Persistent Layouts, Nested Layouts, Head Component |
+| **State** | Remember, Flash Data, Shared Props |
+| **Layouts** | Persistent Layouts, Nested Layouts, Head Component, Layout Props |
 | **Events & Lifecycle** | Global Events, Visit Callbacks, Progress Bar |
 | **Error Handling** | HTTP Exceptions, Network Errors |
-| **HTTP** | useHttp, Query Strings |
+| **HTTP** | useHttp |
 
 ## Setup
 
 ```bash
 # Clone and install
-git clone <repo-url>
-cd inertia-kitchen-sink
+git clone git@github.com:inertiajs/demo-v3.git
+cd demo-v3
 composer install
 npm install
 
@@ -60,8 +60,6 @@ composer run dev
 # For production builds, generate Wayfinder routes first:
 # php artisan wayfinder:generate && npm run build
 ```
-
-The app is also available via [Laravel Herd](https://herd.laravel.com) at `https://inertia-kitchen-sink.test`.
 
 ## Testing
 
