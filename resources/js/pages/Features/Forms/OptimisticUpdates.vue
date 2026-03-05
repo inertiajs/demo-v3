@@ -98,9 +98,9 @@ function toggleFavoriteUseForm(contact: {
                 docs="the-basics/optimistic-updates"
                 controller="app/Http/Controllers/Feature/FormController.php#L79"
             >
-                Instant UI feedback with automatic rollback on error. Toggle
-                a favorite and notice how the heart fills immediately while
-                the request is still in flight.
+                Instant UI feedback with automatic rollback on error. Toggle a
+                favorite and notice how the heart fills immediately while the
+                request is still in flight.
             </FeatureHeader>
 
             <!-- Approach Switcher -->
