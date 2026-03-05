@@ -31,9 +31,8 @@
         "vue-tsc": "^2.2.4"
     },
     "dependencies": {
-        "@inertiajs/core": "file:../inertia/packages/core",
-        "@inertiajs/vite": "file:../inertia/packages/vite",
-        "@inertiajs/vue3": "file:../inertia/packages/vue3",
+        "@inertiajs/vite": "3.0.0-beta.2",
+        "@inertiajs/vue3": "3.0.0-beta.2",
         "@vueuse/core": "^12.8.2",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
