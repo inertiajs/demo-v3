@@ -2,7 +2,7 @@
 import { usePage } from '@inertiajs/vue3';
 
 const REPO_BASE = 'https://github.com/inertiajs/demo-v3/blob/main/';
-const DOCS_BASE = 'https://inertiajs-3-x.mintlify.app/v3/';
+const DOCS_BASE = 'https://inertiajs.com/docs/v3/';
 
 defineProps<{
     docs?: string;
