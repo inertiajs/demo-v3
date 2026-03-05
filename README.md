@@ -1,6 +1,8 @@
 # Inertia.js v3 Kitchen Sink
 
-A comprehensive demo app showcasing every major Inertia.js v3 feature. Built on the official Laravel Vue + Inertia starter kit with a mini CRM and dedicated feature showcase pages.
+A demo app showcasing Inertia.js v3 features. Built on the Laravel starter kit with a mini CRM and feature showcase pages.
+
+> Inertia.js v3 is currently in beta. See the [upgrade guide](https://inertiajs.com/docs/v3/getting-started/upgrade-guide) for more information.
 
 ## Tech Stack
 
@@ -14,11 +16,11 @@ A comprehensive demo app showcasing every major Inertia.js v3 feature. Built on 
 
 ### Mini CRM
 
-A small working app with dashboard, contacts, organizations, and notes — demonstrating real-world Inertia patterns like infinite scroll, deferred props, search, favorites, and file uploads.
+Dashboard, contacts, organizations, and notes demonstrating real-world Inertia patterns.
 
 ### Feature Showcase
 
-Dedicated pages organized by category, each demonstrating specific Inertia v3 features with interactive demos:
+Dedicated pages organized by category with interactive demos:
 
 | Category | Pages |
 |---|---|
@@ -83,6 +85,3 @@ Browser tests require Playwright:
 npx playwright install
 ```
 
-## License
-
-MIT
