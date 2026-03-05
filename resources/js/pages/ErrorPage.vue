@@ -36,6 +36,8 @@ const errors: Record<number, { title: string; description: string }> = {
     },
 };
 
+const goBack = () => window.history.back();
+
 const error = computed(
     () =>
         errors[props.status] ?? {
@@ -72,12 +74,20 @@ const error = computed(
                 </p>
             </div>
 
-            <Link
-                href="/"
-                class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
-            >
-                Go Home
-            </Link>
+            <div class="flex items-center gap-3">
+                <button
+                    @click="goBack"
+                    class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-xs transition-colors hover:bg-primary/90"
+                >
+                    Go Back
+                </button>
+                <Link
+                    href="/"
+                    class="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground shadow-xs transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                    Go Home
+                </Link>
+            </div>
         </div>
     </div>
 </template>

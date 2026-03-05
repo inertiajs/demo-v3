@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Feature;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ErrorController
+class NetworkErrorController
 {
     public function httpExceptions(): Response
     {

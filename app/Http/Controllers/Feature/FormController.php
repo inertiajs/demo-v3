@@ -12,6 +12,7 @@ use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Sleep;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -117,7 +118,9 @@ class FormController
         Sleep::for(1)->second();
 
         if ($request->boolean('simulate_error')) {
-            abort(500, 'Simulated server error for optimistic update rollback demo.');
+            throw ValidationException::withMessages([
+                'contact' => 'Simulated validation error for optimistic update rollback demo.',
+            ]);
         }
 
         $contact->update(['is_favorite' => ! $contact->is_favorite]);

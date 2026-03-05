@@ -56,7 +56,7 @@ onUnmounted(() => {
             <FeatureHeader
                 title="Network Errors"
                 docs="advanced/events#network-error"
-                controller="app/Http/Controllers/Feature/ErrorController.php#L31"
+                controller="app/Http/Controllers/Feature/NetworkErrorController.php#L31"
             >
                 Handle network failures with
                 <code class="text-xs">onNetworkError</code> callback and

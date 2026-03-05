@@ -133,13 +133,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Error Handling
         Route::prefix('errors')->name('errors.')->group(function () {
-            Route::get('http-exceptions', [Feature\ErrorController::class, 'httpExceptions'])->name('http-exceptions');
-            Route::get('http-exceptions/403', [Feature\ErrorController::class, 'httpException403'])->name('http-exceptions.403');
-            Route::get('http-exceptions/404', [Feature\ErrorController::class, 'httpException404'])->name('http-exceptions.404');
-            Route::get('http-exceptions/500', [Feature\ErrorController::class, 'httpException500'])->name('http-exceptions.500');
-            Route::get('http-exceptions/unhandled', [Feature\ErrorController::class, 'httpExceptionUnhandled'])->name('http-exceptions.unhandled');
+            Route::get('http-exceptions', [Feature\NetworkErrorController::class, 'httpExceptions'])->name('http-exceptions');
+            Route::get('http-exceptions/403', [Feature\NetworkErrorController::class, 'httpException403'])->name('http-exceptions.403');
+            Route::get('http-exceptions/404', [Feature\NetworkErrorController::class, 'httpException404'])->name('http-exceptions.404');
+            Route::get('http-exceptions/500', [Feature\NetworkErrorController::class, 'httpException500'])->name('http-exceptions.500');
+            Route::get('http-exceptions/unhandled', [Feature\NetworkErrorController::class, 'httpExceptionUnhandled'])->name('http-exceptions.unhandled');
 
-            Route::get('network-errors', [Feature\ErrorController::class, 'networkErrors'])->name('network-errors');
+            Route::get('network-errors', [Feature\NetworkErrorController::class, 'networkErrors'])->name('network-errors');
         });
 
         // HTTP

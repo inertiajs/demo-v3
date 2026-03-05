@@ -12,7 +12,7 @@ import {
     httpException404,
     httpException500,
     httpExceptionUnhandled,
-} from '@/wayfinder/App/Http/Controllers/Feature/ErrorController';
+} from '@/wayfinder/App/Http/Controllers/Feature/NetworkErrorController';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Error Handling' },
@@ -76,7 +76,7 @@ onUnmounted(() => {
             <FeatureHeader
                 title="HTTP Exceptions"
                 docs="advanced/error-handling"
-                controller="app/Http/Controllers/Feature/ErrorController.php#L11"
+                controller="app/Http/Controllers/Feature/NetworkErrorController.php#L11"
             >
                 Errors handled by
                 <code class="text-xs">handleExceptionsUsing()</code> render as
