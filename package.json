@@ -22,7 +22,7 @@
         "oxlint": "^1.66.0",
         "playwright": "^1.60.0",
         "typescript": "^5.9.3",
-        "vite": "^8.0.13",
+        "vite": "^8.0.16",
         "vue-tsc": "^2.2.12"
     },
     "dependencies": {
