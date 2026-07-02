@@ -132,6 +132,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::get('progress', [Feature\EventController::class, 'progress'])->name('progress');
             Route::get('progress/slow', [Feature\EventController::class, 'progressSlow'])->name('progress.slow');
+
+            Route::get('location-event', [Feature\EventController::class, 'locationEvent'])->name('location-event');
+            Route::get('location-event/deploy', [Feature\EventController::class, 'deployNewVersion'])->name('location-event.deploy');
         });
 
         // Error Handling
