@@ -1,3 +1,8 @@
 allowBuilds:
     unrs-resolver: true
     vue-demi: true
+
+minimumReleaseAgeExclude:
+    - '@inertiajs/core'
+    - '@inertiajs/vite'
+    - '@inertiajs/vue3'

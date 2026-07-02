@@ -50,4 +50,16 @@ class EventController
 
         return Inertia::render('Features/Events/Progress');
     }
+
+    public function locationEvent(): Response
+    {
+        return Inertia::render('Features/Events/LocationEvent');
+    }
+
+    public function deployNewVersion(): RedirectResponse
+    {
+        Inertia::version('new-asset-version-hash');
+
+        return back();
+    }
 }
