@@ -77,10 +77,9 @@ function reload() {
                 docs="advanced/events#the-location-event"
                 controller="app/Http/Controllers/Feature/EventController.php#L54"
             >
-                The cancelable <code class="text-xs">location</code> event
-                fires before Inertia forces a full-page visit. Cancel it to
-                intercept asset version changes with your own UI instead of a
-                hard reload.
+                The cancelable <code class="text-xs">location</code> event fires
+                before Inertia forces a full-page visit. Cancel it to intercept
+                asset version changes with your own UI instead of a hard reload.
             </FeatureHeader>
 
             <div class="grid gap-6 lg:grid-cols-2">
@@ -137,11 +136,13 @@ function reload() {
                         <code class="text-xs">versionChange</code> is
                         <code class="text-xs">true</code> for asset version
                         mismatches and <code class="text-xs">false</code> for
-                        explicit <code class="text-xs">Inertia::location()</code>
-                        redirects. Background requests
-                        (<code class="text-xs">router.reload()</code>, polling)
-                        no longer force a reload on version change; new assets
-                        are picked up on the next user-initiated visit.
+                        explicit
+                        <code class="text-xs">Inertia::location()</code>
+                        redirects. Background requests (<code class="text-xs"
+                            >router.reload()</code
+                        >, polling) no longer force a reload on version change;
+                        new assets are picked up on the next user-initiated
+                        visit.
                     </p>
                 </FeatureCard>
 
@@ -151,7 +152,11 @@ function reload() {
                         this page.
                     </template>
                     <template #header-action>
-                        <Button variant="ghost" size="sm" @click="eventLog = []">
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            @click="eventLog = []"
+                        >
                             Clear
                         </Button>
                     </template>
