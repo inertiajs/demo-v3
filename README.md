@@ -4,7 +4,7 @@ A demo app showcasing Inertia.js v3 features. Built on the Laravel starter kit w
 
 ## Tech Stack
 
-- **Laravel 12** with PHP 8.5
+- **Laravel 13** with PHP 8.5
 - **Inertia.js v3** (`@inertiajs/vue3`)
 - **Vue 3** with Composition API and TypeScript
 - **Tailwind CSS 4** + shadcn-vue

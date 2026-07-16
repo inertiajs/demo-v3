@@ -242,6 +242,11 @@ const featuresSection: NavSectionType = {
                     href: '/features/events/visit-callbacks',
                 },
                 { title: 'Progress Bar', href: '/features/events/progress' },
+                {
+                    title: 'Location Event',
+                    href: '/features/events/location-event',
+                    badge: 'v3.6',
+                },
             ],
         },
         {
