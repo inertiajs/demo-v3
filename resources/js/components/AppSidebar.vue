@@ -10,6 +10,7 @@ import {
     Database,
     Zap,
     Layers,
+    PanelRightOpen,
     Radio,
     AlertTriangle,
     Wifi,
@@ -221,6 +222,52 @@ const featuresSection: NavSectionType = {
                     title: 'Layout Props',
                     href: '/features/layouts/layout-props',
                     badge: 'v3',
+                },
+            ],
+        },
+        {
+            title: 'Layers',
+            icon: PanelRightOpen,
+            items: [
+                {
+                    title: 'Modals & Slideovers',
+                    href: '/features/layers/dialogs',
+                    badge: 'v3.7',
+                },
+                {
+                    title: 'Stacked Layers',
+                    href: '/features/layers/stacked',
+                    badge: 'v3.7',
+                },
+                {
+                    title: 'Local Layers',
+                    href: '/features/layers/local',
+                    badge: 'v3.7',
+                },
+                {
+                    title: 'Inside a Layer',
+                    href: '/features/layers/inside',
+                    badge: 'v3.7',
+                },
+                {
+                    title: 'Swapping Layers',
+                    href: '/features/layers/wizard',
+                    badge: 'v3.7',
+                },
+                {
+                    title: 'Detours',
+                    href: '/features/layers/detours',
+                    badge: 'v3.7',
+                },
+                {
+                    title: 'Cold Opens',
+                    href: '/features/layers/cold',
+                    badge: 'v3.7',
+                },
+                {
+                    title: 'Data in a Layer',
+                    href: '/features/layers/features',
+                    badge: 'v3.7',
                 },
             ],
         },
