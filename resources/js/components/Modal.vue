@@ -67,7 +67,7 @@ const width = computed(
             </Button>
         </header>
 
-        <div class="flex-1 overflow-y-auto px-5 py-4">
+        <div class="min-h-0 flex-auto overflow-y-auto px-5 py-4">
             <slot />
         </div>
     </Layer>
