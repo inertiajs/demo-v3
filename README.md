@@ -30,6 +30,7 @@ Dedicated pages organized by category with interactive demos:
 | **Prefetching**        | Link Prefetch, Stale While Revalidate, Manual Prefetch, Cache Management                                                                                                 |
 | **State**              | Remember, Flash Data, Shared Props                                                                                                                                       |
 | **Layouts**            | Persistent Layouts, Nested Layouts, Head Component, Layout Props                                                                                                         |
+| **Layers**             | Modals & Slideovers, Stacked Layers, Local Layers, Inside a Layer, Swapping Layers, Detours, Cold Opens, Data in a Layer                                                 |
 | **Events & Lifecycle** | Global Events, Visit Callbacks, Progress Bar                                                                                                                             |
 | **Error Handling**     | HTTP Exceptions, Network Errors                                                                                                                                          |
 | **HTTP**               | useHttp                                                                                                                                                                  |
