@@ -244,7 +244,7 @@ class LayerController
     public function cold(Request $request): Response
     {
         // Only the walk asks for a delay, so landing on this page from the sidebar is instant.
-        Sleep::for($request->integer('delay'))->milliseconds();
+        Sleep::for(max(0, min(10000, $request->integer('delay'))))->milliseconds();
 
         return Inertia::render('Features/Layers/Cold', [
             'baseLoadedAt' => now()->format('H:i:s'),
