@@ -148,6 +148,47 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('network-errors', [Feature\NetworkErrorController::class, 'networkErrors'])->name('network-errors');
         });
 
+        // Layers
+        Route::prefix('layers')->name('layers.')->group(function () {
+            Route::get('dialogs', [Feature\LayerController::class, 'dialogs'])->name('dialogs');
+            Route::get('dialogs/{contact}', [Feature\LayerController::class, 'contactCard'])->name('dialogs.contact');
+            Route::get('dialogs/{contact}/edit', [Feature\LayerController::class, 'contactEdit'])->name('dialogs.edit');
+            Route::put('dialogs/{contact}', [Feature\LayerController::class, 'updateContact'])->name('dialogs.update');
+            Route::post('dialogs/{contact}/favorite', [Feature\LayerController::class, 'toggleContactFavorite'])->name('dialogs.favorite');
+
+            Route::get('stacked', [Feature\LayerController::class, 'stacked'])->name('stacked');
+            Route::get('stacked/{organization}', [Feature\LayerController::class, 'organization'])->name('organization');
+            Route::get('stacked/{organization}/{contact}', [Feature\LayerController::class, 'organizationContact'])->name('organization.contact');
+            Route::post('stacked/{organization}/{contact}/notes', [Feature\LayerController::class, 'storeNote'])->name('organization.notes');
+
+            Route::get('local', [Feature\LayerController::class, 'local'])->name('local');
+            Route::post('local/{contact}/favorite', [Feature\LayerController::class, 'toggleFavorite'])->name('local.favorite');
+
+            Route::get('inside', [Feature\LayerController::class, 'inside'])->name('inside');
+            Route::get('inside/panel', [Feature\LayerController::class, 'insidePanel'])->name('inside.panel');
+            Route::get('inside/child', [Feature\LayerController::class, 'insideChild'])->name('inside.child');
+            Route::post('inside/close', [Feature\LayerController::class, 'insideClose'])->name('inside.close');
+
+            Route::get('features', [Feature\LayerController::class, 'features'])->name('features');
+            Route::get('features/panel', [Feature\LayerController::class, 'featuresPanel'])->name('features.panel');
+
+            Route::get('cold', [Feature\LayerController::class, 'cold'])->name('cold');
+            Route::get('cold/panel', [Feature\LayerController::class, 'coldPanel'])->name('cold.panel');
+
+            Route::get('wizard', [Feature\LayerController::class, 'wizard'])->name('wizard');
+            Route::get('wizard/help', [Feature\LayerController::class, 'wizardHelp'])->name('wizard.help');
+            Route::get('wizard/{step}', [Feature\LayerController::class, 'wizardStep'])->name('wizard.step')->whereIn('step', ['details', 'access', 'review']);
+
+            Route::get('detours', [Feature\LayerController::class, 'detours'])->name('detours');
+            Route::get('detours/secret', [Feature\LayerController::class, 'detour'])->name('detour');
+            Route::get('detours/confirm', [Feature\LayerController::class, 'detourConfirm'])->name('detour.confirm');
+            Route::post('detours/confirm', [Feature\LayerController::class, 'detourComplete'])->name('detour.complete');
+            Route::post('detours/forget', [Feature\LayerController::class, 'detourForget'])->name('detour.forget');
+            Route::get('detours/denied', [Feature\LayerController::class, 'detourDenied'])->name('detour.denied');
+            Route::get('detours/missing', [Feature\LayerController::class, 'detourMissing'])->name('detour.missing');
+            Route::get('detours/broken', [Feature\LayerController::class, 'detourBroken'])->name('detour.broken');
+        });
+
         // HTTP
         Route::prefix('http')->name('http.')->group(function () {
             Route::get('use-http', [Feature\HttpController::class, 'useHttp'])->name('use-http');
