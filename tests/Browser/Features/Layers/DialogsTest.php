@@ -27,7 +27,7 @@ it('opens a routed layer over the page and takes the address', function () {
         ->waitForText('A routed layer rendered as a modal.')
         ->assertCount('dialog[data-layer-index]', 1)
         ->assertPathIs("/features/layers/dialogs/{$contact->id}")
-        ->assertAttribute('dialog[data-layer-index]', 'aria-label', 'Ada Lovelace')
+        ->assertAttribute('dialog[data-layer-index]', 'aria-labelledby', 'layer-title-0')
         ->assertSee('Modals & Slideovers')
         ->assertNoJavaScriptErrors();
 });

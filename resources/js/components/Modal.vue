@@ -38,7 +38,7 @@ const width = computed(
         :type="type"
         :close="close"
         :done="done"
-        :label="title"
+        :aria-labelledby="`layer-title-${index}`"
         class="layer-modal m-auto flex max-h-[calc(100%-4rem)] w-[calc(100%-2rem)] flex-col overflow-hidden rounded-xl border bg-card p-0 text-card-foreground shadow-2xl"
         :class="width"
         @click.self="close()"
@@ -48,6 +48,7 @@ const width = computed(
         >
             <div class="space-y-1">
                 <h2
+                    :id="`layer-title-${index}`"
                     class="flex items-center gap-2 font-semibold tracking-tight"
                 >
                     <slot name="title">{{ title }}</slot>
