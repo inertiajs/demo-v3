@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Feature;
 
+use App\Models\Contact;
+use App\Models\Organization;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Sleep;
 use Inertia\Inertia;
@@ -105,6 +108,42 @@ class NavigationController
         return Inertia::render('Features/Navigation/ManualVisits', [
             'timestamp' => now()->toDateTimeString(),
             'counter' => random_int(1, 1000),
+        ]);
+    }
+
+    public function queryVisits(Request $request): Response
+    {
+        $filters = [
+            'search' => $request->string('search')->toString(),
+            'organizations' => array_map('intval', $request->array('organizations')),
+            'favorites' => $request->boolean('favorites'),
+        ];
+
+        $contacts = Contact::query()
+            ->search($filters['search'])
+            ->when($filters['organizations'], fn (Builder $query, array $ids) => $query->whereIn('organization_id', $ids))
+            ->when($filters['favorites'], fn (Builder $query) => $query->where('is_favorite', true));
+
+        return Inertia::render('Features/Navigation/QueryVisits', [
+            'filters' => $filters,
+            'organizations' => Organization::query()->orderBy('name')->get(['id', 'name']),
+            'contacts' => fn () => (clone $contacts)
+                ->with('organization:id,name')
+                ->orderBy('last_name')
+                ->limit(8)
+                ->get()
+                ->map(fn (Contact $contact) => [
+                    'id' => $contact->id,
+                    'name' => $contact->name,
+                    'organization' => $contact->organization?->name,
+                    'isFavorite' => $contact->is_favorite,
+                ]),
+            'matches' => Inertia::defer(fn () => (clone $contacts)->count()),
+            'lastRequest' => fn () => [
+                'method' => $request->method(),
+                'body' => $request->getContent() ?: null,
+                'at' => now()->format('H:i:s.v'),
+            ],
         ]);
     }
 

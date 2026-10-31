@@ -8,9 +8,9 @@ A demo app showcasing Inertia.js v3 features. Built on the Laravel starter kit w
 - **Inertia.js v3** (`@inertiajs/vue3`)
 - **Vue 3** with Composition API and TypeScript
 - **Tailwind CSS 4** + shadcn-vue
-- **Pest 4** with browser testing (Playwright)
+- **Pest 5** with browser testing (Playwright)
 - **pnpm** (^11) for package management
-- **oxlint** + **oxfmt** for linting and formatting
+- **Vite+** for building, linting, and formatting (`pnpm run check`)
 
 ## What's Inside
 

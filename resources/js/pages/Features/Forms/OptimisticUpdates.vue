@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form, Head, router, useForm } from '@inertiajs/vue3';
-import { Heart } from 'lucide-vue-next';
+import { Heart } from '@lucide/vue';
 import { ref } from 'vue';
 import CodeBlock from '@/components/CodeBlock.vue';
 import FeatureCard from '@/components/FeatureCard.vue';

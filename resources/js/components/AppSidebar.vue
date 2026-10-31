@@ -14,7 +14,7 @@ import {
     AlertTriangle,
     Wifi,
     Save,
-} from 'lucide-vue-next';
+} from '@lucide/vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavSection from '@/components/NavSection.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -136,6 +136,11 @@ const featuresSection: NavSectionType = {
                     href: '/features/navigation/url-fragments',
                     badge: 'v3',
                 },
+                {
+                    title: 'QUERY Visits',
+                    href: '/features/navigation/query-visits',
+                    badge: 'v3',
+                },
             ],
         },
         {
@@ -170,6 +175,11 @@ const featuresSection: NavSectionType = {
                 {
                     title: 'Optional Props',
                     href: '/features/data-loading/optional-props',
+                },
+                {
+                    title: 'Big Integers',
+                    href: '/features/data-loading/big-integers',
+                    badge: 'v3',
                 },
             ],
         },

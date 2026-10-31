@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
-import { LogOut, Monitor, Moon, Sun } from 'lucide-vue-next';
+import { LogOut, Monitor, Moon, Sun } from '@lucide/vue';
 import {
     DropdownMenuGroup,
     DropdownMenuItem,
@@ -19,7 +19,7 @@ type Props = {
 const { appearance, updateAppearance } = useAppearance();
 
 const handleLogout = () => {
-    router.cancelAll();
+    router.flushAll();
 };
 
 defineProps<Props>();
