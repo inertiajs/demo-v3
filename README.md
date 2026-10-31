@@ -12,6 +12,19 @@ A demo app showcasing Inertia.js v3 features. Built on the Laravel starter kit w
 - **pnpm** (^11) for package management
 - **oxlint** + **oxfmt** for linting and formatting
 
+## Libraries Added
+
+- 27 June 2026:
+    - laravel/boost `composer require laravel/boost --dev` && `php artisan boost:install`
+
+## Issue Encountered
+
+- 27 June 2026:
+    - Installation:
+        - running `php artisan wayfinder:generate` shows issue of `Allowed memory size of 134217728 bytes exhausted (tried to allocate 208896 bytes)`. <br><b>Solution:</b> `php -d memory_limit=-1 artisan wayfinder:generate`
+
+        - use `pnpm` instead of npm. <br> <b>Solution:</b> Install pnpm via npm globally `npm install -g pnpm`
+
 ## What's Inside
 
 ### Mini CRM
