@@ -188,14 +188,25 @@ function submitOrderId() {
                             </span>
                         </div>
 
-                        <CodeBlock
-                            title="Controller:"
-                            code="
-                                $request->validate(['id' => ['required', 'integer']]);
+                        <div class="grid gap-3 sm:grid-cols-2">
+                            <CodeBlock
+                                title="Page component:"
+                                code="
+                                    router.post('/orders', {
+                                      id: 900719925474099988n,
+                                    })
+                                "
+                                data-test="submit-client-code"
+                            />
+                            <CodeBlock
+                                title="Controller:"
+                                code="
+                                    $request->validate(['id' => ['required', 'integer']]);
 
-                                $request->integer('id'); // 900719925474099988
-                            "
-                        />
+                                    $request->integer('id'); // 900719925474099988
+                                "
+                            />
+                        </div>
                     </div>
                 </FeatureCard>
             </div>

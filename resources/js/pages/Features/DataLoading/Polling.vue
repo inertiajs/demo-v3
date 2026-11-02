@@ -73,10 +73,12 @@ function setMode(mode: PollMode) {
 
 type PollBackground = 'throttle' | 'pause' | 'continue';
 
-const hiddenRequests = reactive<Record<PollBackground, number>>({
-    throttle: 0,
-    pause: 0,
-    continue: 0,
+const backgroundRequests = reactive<
+    Record<PollBackground, { total: number; hidden: number }>
+>({
+    throttle: { total: 0, hidden: 0 },
+    pause: { total: 0, hidden: 0 },
+    continue: { total: 0, hidden: 0 },
 });
 
 function backgroundPoll(background: PollBackground) {
@@ -85,8 +87,10 @@ function backgroundPoll(background: PollBackground) {
         {
             only: ['currentTime'],
             onStart: () => {
+                backgroundRequests[background].total++;
+
                 if (document.hidden) {
-                    hiddenRequests[background]++;
+                    backgroundRequests[background].hidden++;
                 }
             },
         },
@@ -111,9 +115,10 @@ function toggleBackgroundPolling() {
         return;
     }
 
-    hiddenRequests.throttle = 0;
-    hiddenRequests.pause = 0;
-    hiddenRequests.continue = 0;
+    Object.values(backgroundRequests).forEach((requests) => {
+        requests.total = 0;
+        requests.hidden = 0;
+    });
 
     Object.values(backgroundPolls).forEach((p) => p.start());
 }
@@ -198,21 +203,6 @@ const modes: { value: PollMode; label: string; description: string }[] = [
                             </Badge>
                         </div>
 
-                        <p
-                            class="flex items-start gap-2 text-xs text-muted-foreground"
-                        >
-                            <span
-                                class="shrink-0 rounded bg-indigo-500/10 px-2 py-1 text-[10px] leading-none font-semibold text-indigo-500"
-                                >v3.7</span
-                            >
-                            <span>
-                                The status comes from the
-                                <code>polling</code> ref returned by
-                                <code>usePoll()</code>, which tracks
-                                <code>start()</code> and <code>stop()</code>.
-                            </span>
-                        </p>
-
                         <div class="space-y-2">
                             <p
                                 class="flex items-center gap-2 text-sm font-medium"
@@ -249,11 +239,15 @@ const modes: { value: PollMode; label: string; description: string }[] = [
                         <div class="grid grid-cols-2 gap-3 text-sm">
                             <div>
                                 Poll count:
-                                <strong>{{ pollCount }}</strong>
+                                <strong class="tabular-nums">{{
+                                    pollCount
+                                }}</strong>
                             </div>
                             <div>
                                 In flight:
-                                <strong>{{ inFlight }}</strong>
+                                <strong class="tabular-nums">{{
+                                    inFlight
+                                }}</strong>
                             </div>
                         </div>
 
@@ -294,17 +288,21 @@ const modes: { value: PollMode; label: string; description: string }[] = [
                                 <span class="text-sm font-medium"
                                     >Random Number</span
                                 >
-                                <Badge variant="secondary">{{
-                                    randomNumber
-                                }}</Badge>
+                                <Badge
+                                    variant="secondary"
+                                    class="tabular-nums"
+                                    >{{ randomNumber }}</Badge
+                                >
                             </div>
                             <div class="flex items-center justify-between">
                                 <span class="text-sm font-medium"
                                     >Contact Count</span
                                 >
-                                <Badge variant="secondary">{{
-                                    contactCount
-                                }}</Badge>
+                                <Badge
+                                    variant="secondary"
+                                    class="tabular-nums"
+                                    >{{ contactCount }}</Badge
+                                >
                             </div>
                         </div>
                     </div>
@@ -318,7 +316,7 @@ const modes: { value: PollMode; label: string; description: string }[] = [
                     <template #description>
                         The <code class="text-xs">background</code> option
                         controls polling while the tab is hidden. Start all
-                        three, switch to another tab for about 20 seconds, then
+                        three, switch to another tab for a few seconds, then
                         come back.
                     </template>
                     <div class="space-y-4">
@@ -355,10 +353,22 @@ const modes: { value: PollMode; label: string; description: string }[] = [
                                     {{ b.description }}
                                 </p>
                                 <p class="pt-1 text-sm">
-                                    While hidden:
-                                    <strong :data-test="`hidden-${b.value}`">{{
-                                        hiddenRequests[b.value]
-                                    }}</strong>
+                                    Total:
+                                    <strong
+                                        class="tabular-nums"
+                                        :data-test="`total-${b.value}`"
+                                        >{{
+                                            backgroundRequests[b.value].total
+                                        }}</strong
+                                    >
+                                    · While hidden:
+                                    <strong
+                                        class="tabular-nums"
+                                        :data-test="`hidden-${b.value}`"
+                                        >{{
+                                            backgroundRequests[b.value].hidden
+                                        }}</strong
+                                    >
                                 </p>
                             </div>
                         </div>

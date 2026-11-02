@@ -55,7 +55,7 @@ it('replays the QUERY body when reloading the results', function () {
 it('makes QUERY visits with a link and clears them with a GET visit', function () {
     $page = visit('/features/navigation/query-visits');
 
-    $page->click('Favorites Link')
+    $page->click('Favorite contacts')
         ->assertSeeIn('[data-test="request-method"]', 'QUERY')
         ->assertSeeIn('[data-test="matches"]', '1')
         ->assertSee('John Doe')

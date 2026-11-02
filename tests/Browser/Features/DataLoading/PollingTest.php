@@ -55,6 +55,8 @@ it('throttles, pauses, or continues background polls while the tab is hidden', f
         ->assertSee('v3.9')
         ->click('Start Background Polls')
         ->assertSee('Stop Background Polls')
+        ->wait(1.5)
+        ->assertScript("Number(document.querySelector('[data-test=\"total-pause\"]').textContent) >= 1")
         ->script(<<<'JS'
             Object.defineProperty(document, 'hidden', { configurable: true, get: () => true })
             document.dispatchEvent(new Event('visibilitychange'))

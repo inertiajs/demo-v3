@@ -98,10 +98,11 @@ function reloadResults() {
                 The HTTP <code class="text-xs">QUERY</code> method is safe and
                 repeatable like <code class="text-xs">GET</code>, but sends its
                 data in the request body. A good fit for searches and filters
-                that don't fit in a query string.
+                that don't fit in a query string. Laravel supports
+                <code class="text-xs">QUERY</code> routes as of version 13.35.
             </FeatureHeader>
 
-            <div class="grid gap-6 lg:grid-cols-2">
+            <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
                 <FeatureCard title="Filters" badge="v3.10">
                     <template #description>
                         Submitted with
@@ -110,6 +111,26 @@ function reloadResults() {
                     </template>
                     <form class="space-y-4" @submit.prevent="search">
                         <div class="space-y-2">
+                            <p class="text-sm font-medium">Saved search</p>
+                            <Button variant="outline" size="sm" as-child>
+                                <Link
+                                    :href="url"
+                                    method="query"
+                                    :data="{ favorites: true }"
+                                    preserve-scroll
+                                    >Favorite contacts</Link
+                                >
+                            </Button>
+                            <p class="text-xs text-muted-foreground">
+                                A
+                                <code>&lt;Link method="query"&gt;</code> sends
+                                its <code>data</code> as the request body too.
+                            </p>
+                        </div>
+
+                        <div
+                            class="space-y-2 border-t border-black/5 pt-4 dark:border-white/5"
+                        >
                             <Label for="query-search">Search</Label>
                             <Input
                                 id="query-search"
@@ -151,19 +172,14 @@ function reloadResults() {
                         </label>
 
                         <div class="flex flex-wrap items-center gap-2">
-                            <Button type="submit" :disabled="form.processing">
+                            <Button
+                                type="submit"
+                                size="sm"
+                                :disabled="form.processing"
+                            >
                                 Search
                             </Button>
-                            <Button variant="outline" as-child>
-                                <Link
-                                    :href="url"
-                                    method="query"
-                                    :data="{ favorites: true }"
-                                    preserve-scroll
-                                    >Favorites Link</Link
-                                >
-                            </Button>
-                            <Button variant="ghost" as-child>
+                            <Button variant="outline" size="sm" as-child>
                                 <Link :href="url">Clear</Link>
                             </Button>
                         </div>

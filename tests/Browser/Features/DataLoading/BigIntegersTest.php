@@ -13,6 +13,7 @@ it('receives big integers as exact BigInt values when enabled', function () {
         ->assertSeeIn('[data-test="order-id-type"]', 'bigint')
         ->assertSeeIn('[data-test="order-id-status"]', 'Exact')
         ->assertSeeIn('[data-test="customer-id-type"]', 'number')
+        ->assertSeeIn('[data-test="submit-client-code"]', 'router.post')
         ->click('Submit Order ID')
         ->assertSeeIn('[data-test="received-order-id"]', '900719925474099988')
         ->assertSeeIn('[data-test="received-order-id"]', 'Exact')

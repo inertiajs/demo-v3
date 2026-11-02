@@ -138,8 +138,7 @@ onUnmounted(() => {
                                 was reached: <code>initial</code> on page load,
                                 <code>visit</code> for visits that add a history
                                 entry, and <code>history</code> for back and
-                                forward. Click "Visit With Query", then press
-                                the browser's back button.
+                                forward.
                             </span>
                         </p>
 

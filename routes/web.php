@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Navigation
         Route::prefix('navigation')->name('navigation.')->group(function () {
-            Route::get('links', [Feature\NavigationController::class, 'links'])->name('links');
+            Route::match(['get', 'query'], 'links', [Feature\NavigationController::class, 'links'])->name('links');
             Route::match(['post', 'put', 'patch', 'delete'], 'links', [Feature\NavigationController::class, 'linksAction']);
 
             Route::get('preserve-state', [Feature\NavigationController::class, 'preserveState'])->name('preserve-state');

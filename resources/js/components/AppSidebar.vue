@@ -139,7 +139,7 @@ const featuresSection: NavSectionType = {
                 {
                     title: 'QUERY Visits',
                     href: '/features/navigation/query-visits',
-                    badge: 'v3',
+                    badge: 'v3.10',
                 },
             ],
         },
@@ -179,7 +179,7 @@ const featuresSection: NavSectionType = {
                 {
                     title: 'Big Integers',
                     href: '/features/data-loading/big-integers',
-                    badge: 'v3',
+                    badge: 'v3.8',
                 },
             ],
         },

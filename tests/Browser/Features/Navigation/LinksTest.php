@@ -10,6 +10,8 @@ it('renders the links & methods page', function () {
     $page->assertSee('Links & Methods')
         ->assertSee('Programmatic Visits')
         ->assertSee('Server Response')
+        ->assertSee('QUERY Request')
+        ->assertSee('router.query()')
         ->assertNoJavaScriptErrors();
 });
 
