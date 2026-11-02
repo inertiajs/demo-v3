@@ -12,11 +12,11 @@ importers:
   .:
     dependencies:
       '@inertiajs/vite':
-        specifier: ^3.10.0
-        version: 3.10.0(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.28)(@vue/language-core@3.3.13)(jiti@2.7.0)(typescript@6.0.3)(vue-tsc@3.3.13(typescript@6.0.3)))
+        specifier: ^3.11.0
+        version: 3.11.0(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.28)(@vue/language-core@3.3.13)(jiti@2.7.0)(typescript@6.0.3)(vue-tsc@3.3.13(typescript@6.0.3)))
       '@inertiajs/vue3':
-        specifier: ^3.10.0
-        version: 3.10.0(vue@3.5.44(typescript@6.0.3))
+        specifier: ^3.11.0
+        version: 3.11.0(@laravel/echo-vue@2.6.3(pusher-js@8.6.0)(vue@3.5.44(typescript@6.0.3)))(vue@3.5.44(typescript@6.0.3))
       '@lucide/vue':
         specifier: ^1.65.0
         version: 1.65.0(vue@3.5.44(typescript@6.0.3))
@@ -137,23 +137,27 @@ packages:
     peerDependencies:
       vue: '>=3.3.0'
 
-  '@inertiajs/core@3.10.0':
-    resolution: {integrity: sha512-bkPajs5v45v/udXoJhI9N+JtG2qoPNzSBbt67+nyAqX1qiyp/aTT4jAN3/AQS4wkf6AQp211Dl4rVaxe9vw/+g==}
+  '@inertiajs/core@3.11.0':
+    resolution: {integrity: sha512-YDqkKHsTiDUKofVzE3p6IduuU1u0ZwmheSpk2AZP6Eig3ZwhTlchDiLbUhFUCd138naqlhjRh2rTxIXeKrnmOQ==}
     peerDependencies:
       axios: ^1.15.2
     peerDependenciesMeta:
       axios:
         optional: true
 
-  '@inertiajs/vite@3.10.0':
-    resolution: {integrity: sha512-HjTYLwDFpNowNrc2DNu8hUZBAgiXqXpmbDlGwYNxfhF/LJkdkjawLq9b9G+chU/wkMxDjBlA9jLYczJGfw8WSw==}
+  '@inertiajs/vite@3.11.0':
+    resolution: {integrity: sha512-BQDD++BbQ/Q7U2E3yPGYki/vkwC+pT2DNUXUItrGeMefLy8aBaJXftF979+hupU/V3rfXf1RpGZZRi+BcQ5jRQ==}
     peerDependencies:
       vite: ^7.0.0 || ^8.0.0
 
-  '@inertiajs/vue3@3.10.0':
-    resolution: {integrity: sha512-bSU0Gw/50bHAwrYbHtdw6rUetk+A6r5uOsL2DqKz1gRAf0hrc87+n/1RXOQqUPapK62n5BWkUrggOhIm5XmvCQ==}
+  '@inertiajs/vue3@3.11.0':
+    resolution: {integrity: sha512-O1NnujzskjOWOI4OlGmZfNbpkzzO/PvHGQyMv2de6ntwc2UZvFHUa0UoGOgqV3bjJINMdjJdaU+mOkNPATVERQ==}
     peerDependencies:
+      '@laravel/echo-vue': ^2.0.0
       vue: ^3.0.0
+    peerDependenciesMeta:
+      '@laravel/echo-vue':
+        optional: true
 
   '@internationalized/date@3.12.4':
     resolution: {integrity: sha512-M1dEn4c1U1HsSlaVR8upZtSqvXrTkHDfv18H01uCSJyjVLDxnBR38v/fMxecmlwXKR4i9HeZcmgQAPE6A+aGJQ==}
@@ -1750,15 +1754,15 @@ snapshots:
       '@floating-ui/utils': 0.2.12
       vue: 3.5.44(typescript@6.0.3)
 
-  '@inertiajs/core@3.10.0':
+  '@inertiajs/core@3.11.0':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       es-toolkit: 1.53.0
       laravel-precognition: 2.1.1
 
-  '@inertiajs/vite@3.10.0(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.28)(@vue/language-core@3.3.13)(jiti@2.7.0)(typescript@6.0.3)(vue-tsc@3.3.13(typescript@6.0.3)))':
+  '@inertiajs/vite@3.11.0(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.28)(@vue/language-core@3.3.13)(jiti@2.7.0)(typescript@6.0.3)(vue-tsc@3.3.13(typescript@6.0.3)))':
     dependencies:
-      '@inertiajs/core': 3.10.0
+      '@inertiajs/core': 3.11.0
       '@jridgewell/remapping': 2.3.5
       magic-string: 0.30.21
       tinyglobby: 0.2.17
@@ -1766,12 +1770,14 @@ snapshots:
     transitivePeerDependencies:
       - axios
 
-  '@inertiajs/vue3@3.10.0(vue@3.5.44(typescript@6.0.3))':
+  '@inertiajs/vue3@3.11.0(@laravel/echo-vue@2.6.3(pusher-js@8.6.0)(vue@3.5.44(typescript@6.0.3)))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
-      '@inertiajs/core': 3.10.0
+      '@inertiajs/core': 3.11.0
       es-toolkit: 1.53.0
       laravel-precognition: 2.1.1
       vue: 3.5.44(typescript@6.0.3)
+    optionalDependencies:
+      '@laravel/echo-vue': 2.6.3(pusher-js@8.6.0)(vue@3.5.44(typescript@6.0.3))
     transitivePeerDependencies:
       - axios
 

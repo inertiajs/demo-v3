@@ -77,6 +77,9 @@ class AppServiceProvider extends ServiceProvider
 
             return Limit::perMinute(120)->by($request->ip());
         });
+
+        // The live props demo broadcasts to every visitor, so keep each one from flooding the channel
+        RateLimiter::for('broadcasts', fn (Request $request): Limit => Limit::perMinute(30)->by($request->ip()));
     }
 
     /**

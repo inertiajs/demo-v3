@@ -181,6 +181,11 @@ const featuresSection: NavSectionType = {
                     href: '/features/data-loading/big-integers',
                     badge: 'v3.8',
                 },
+                {
+                    title: 'Live Props',
+                    href: '/features/data-loading/live-props',
+                    badge: 'v3.11',
+                },
             ],
         },
         {
