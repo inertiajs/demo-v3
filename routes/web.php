@@ -95,6 +95,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('optional-props', [Feature\DataLoadingController::class, 'optionalProps'])->name('optional-props');
             Route::get('big-integers', [Feature\DataLoadingController::class, 'bigIntegers'])->name('big-integers');
             Route::post('big-integers', [Feature\DataLoadingController::class, 'submitBigInteger']);
+            Route::get('live-props', [Feature\LivePropsController::class, 'show'])->name('live-props');
+            Route::post('live-props/votes', [Feature\LivePropsController::class, 'castVote'])->name('live-props.votes')->middleware('throttle:broadcasts');
+            Route::post('live-props/reactions', [Feature\LivePropsController::class, 'addReaction'])->name('live-props.reactions')->middleware('throttle:broadcasts');
+            Route::post('live-props/ticks', [Feature\LivePropsController::class, 'burstTicks'])->name('live-props.ticks')->middleware('throttle:broadcasts');
         });
 
         // Prefetching

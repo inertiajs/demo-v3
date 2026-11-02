@@ -28,8 +28,8 @@
         "vue-tsc": "3.3.13"
     },
     "dependencies": {
-        "@inertiajs/vite": "^3.10.0",
-        "@inertiajs/vue3": "^3.10.0",
+        "@inertiajs/vite": "^3.11.0",
+        "@inertiajs/vue3": "^3.11.0",
         "@lucide/vue": "^1.65.0",
         "@vueuse/core": "^15.0.0",
         "class-variance-authority": "^0.7.1",
