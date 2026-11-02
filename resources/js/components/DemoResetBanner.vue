@@ -4,6 +4,7 @@ import { RotateCcw } from '@lucide/vue';
 import { ref, watch } from 'vue';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
+import { dashboard } from '@/wayfinder/routes';
 
 const page = usePage();
 const wasReset = ref(false);
@@ -19,9 +20,16 @@ watch(
     },
 );
 
+// Detail pages point at records the reset deleted, so those land on the dashboard
 function reload() {
     wasReset.value = false;
-    router.reload();
+    router.reload({
+        onHttpException: () => {
+            router.visit(dashboard());
+
+            return false;
+        },
+    });
 }
 </script>
 
