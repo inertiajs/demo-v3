@@ -13,7 +13,6 @@ use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -37,8 +36,3 @@ Artisan::command('demo:reset', function () {
 
     broadcast(new DemoDataReset);
 })->purpose('Replace the demo data, keeping the demo user signed in')->daily();
-
-// The live props demo is shared by every visitor, so it only keeps the last hour
-Schedule::command('model:prune', [
-    '--model' => [LiveVote::class, LiveReaction::class, LiveTick::class],
-])->hourly();

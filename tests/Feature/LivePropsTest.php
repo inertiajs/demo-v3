@@ -2,9 +2,6 @@
 
 use App\Events\ReactionAdded;
 use App\Events\VoteCast;
-use App\Models\LiveReaction;
-use App\Models\LiveTick;
-use App\Models\LiveVote;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 
@@ -55,20 +52,4 @@ it('broadcasts the new reaction counts with the event', function () {
 it('rejects unknown options', function () {
     $this->post(route('features.data-loading.live-props.votes'), ['framework' => 'angular'])->assertSessionHasErrors('framework');
     $this->post(route('features.data-loading.live-props.reactions'), ['reaction' => 'skull'])->assertSessionHasErrors('reaction');
-});
-
-it('prunes votes, reactions and ticks older than an hour', function () {
-    LiveVote::create(['visitor' => 'Visitor A', 'framework' => 'vue']);
-    LiveReaction::create(['visitor' => 'Visitor A', 'reaction' => 'party']);
-    LiveTick::create();
-
-    $this->travel(61)->minutes();
-
-    LiveVote::create(['visitor' => 'Visitor B', 'framework' => 'react']);
-
-    $this->artisan('model:prune', ['--model' => [LiveVote::class, LiveReaction::class, LiveTick::class]])->assertSuccessful();
-
-    expect(LiveVote::pluck('visitor')->all())->toBe(['Visitor B'])
-        ->and(LiveReaction::count())->toBe(0)
-        ->and(LiveTick::count())->toBe(0);
 });
