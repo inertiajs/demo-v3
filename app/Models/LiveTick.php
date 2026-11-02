@@ -16,6 +16,6 @@ class LiveTick extends Model
     public function prunable(): Builder
     {
         // Every visitor shares the live props demo, so it only keeps the last hour
-        return static::where('updated_at', '<=', now()->subHour());
+        return static::query()->where('updated_at', '<=', now()->subHour());
     }
 }
