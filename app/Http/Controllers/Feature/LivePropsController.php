@@ -116,8 +116,6 @@ class LivePropsController
      */
     protected function reactions(): array
     {
-        $reactions = LiveReaction::pluck('reaction')->countBy();
-
-        return collect(self::REACTIONS)->mapWithKeys(fn (string $reaction) => [$reaction => $reactions->get($reaction, 0)])->all();
+        return collect(self::REACTIONS)->mapWithKeys(fn (string $reaction) => [$reaction => LiveReaction::where('reaction', $reaction)->count()])->all();
     }
 }
