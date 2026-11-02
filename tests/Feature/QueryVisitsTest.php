@@ -59,3 +59,12 @@ it('renders every contact for a plain GET visit', function () {
         ->has('contacts', 3)
     );
 });
+
+it('hides the QUERY demos when the QUERY method is disabled', function () {
+    config(['demo.query_method' => false]);
+
+    $this->get(route('features.navigation.links'))
+        ->assertInertia(fn ($page) => $page->where('queryMethod', false));
+
+    $this->get(route('features.navigation.query-visits'))->assertNotFound();
+});

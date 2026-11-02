@@ -137,7 +137,7 @@ function manualVisit(method: string) {
                             </Link>
                         </div>
 
-                        <div class="space-y-2">
+                        <div v-if="$page.props.queryMethod" class="space-y-2">
                             <h4
                                 class="flex items-center gap-2 text-sm font-semibold"
                             >
@@ -228,6 +228,7 @@ function manualVisit(method: string) {
                                 >router.delete()</Button
                             >
                             <Button
+                                v-if="$page.props.queryMethod"
                                 variant="outline"
                                 size="sm"
                                 @click="manualVisit('query')"

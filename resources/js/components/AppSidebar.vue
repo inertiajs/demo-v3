@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import {
     BookOpen,
     ContactRound,
@@ -57,6 +57,8 @@ const crmSection: NavSectionType = {
         },
     ],
 };
+
+const queryMethod = usePage().props.queryMethod;
 
 const featuresSection: NavSectionType = {
     label: 'Kitchen Sink',
@@ -136,11 +138,15 @@ const featuresSection: NavSectionType = {
                     href: '/features/navigation/url-fragments',
                     badge: 'v3',
                 },
-                {
-                    title: 'QUERY Visits',
-                    href: '/features/navigation/query-visits',
-                    badge: 'v3.10',
-                },
+                ...(queryMethod
+                    ? [
+                          {
+                              title: 'QUERY Visits',
+                              href: '/features/navigation/query-visits',
+                              badge: 'v3.10',
+                          },
+                      ]
+                    : []),
             ],
         },
         {

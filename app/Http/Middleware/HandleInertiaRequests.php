@@ -44,6 +44,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'queryMethod' => config('demo.query_method'),
             // Live on every page, so an open page notices when the demo data is reset
             'demoResetAt' => $request->user()
                 ? Inertia::live(fn () => DemoDataReset::resetAt(), on: DemoDataReset::class)

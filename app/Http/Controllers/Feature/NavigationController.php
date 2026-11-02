@@ -113,6 +113,8 @@ class NavigationController
 
     public function queryVisits(Request $request): Response
     {
+        abort_unless(config('demo.query_method'), 404);
+
         $filters = [
             'search' => $request->string('search')->toString(),
             'organizations' => array_map('intval', $request->array('organizations')),
