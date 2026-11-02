@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public const EMAIL = 'test@example.com';
 
     /**
-     * Seed the demo user.
+     * Run the database seeds.
      */
     public function run(): void
     {

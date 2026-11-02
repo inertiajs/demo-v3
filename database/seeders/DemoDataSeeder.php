@@ -11,7 +11,7 @@ use Illuminate\Database\Seeder;
 class DemoDataSeeder extends Seeder
 {
     /**
-     * Seed the CRM data, which `demo:reset` replaces every day.
+     * Run the database seeds.
      */
     public function run(): void
     {

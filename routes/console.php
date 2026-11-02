@@ -35,10 +35,8 @@ Artisan::command('demo:reset', function () {
         $this->call('db:seed', ['--class' => DemoDataSeeder::class, '--force' => true]);
     });
 
-    broadcast(new DemoDataReset(Organization::min('created_at')));
-})->purpose('Replace the demo data, keeping the demo user signed in');
-
-Schedule::command('demo:reset')->daily();
+    broadcast(new DemoDataReset);
+})->purpose('Replace the demo data, keeping the demo user signed in')->daily();
 
 // The live props demo is shared by every visitor, so it only keeps the last hour
 Schedule::command('model:prune', [

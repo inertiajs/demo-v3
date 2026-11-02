@@ -6,14 +6,13 @@ use App\Models\LiveVote;
 use App\Models\Note;
 use App\Models\Organization;
 use App\Models\User;
-use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Support\Facades\Event;
 
 beforeEach(function () {
     Event::fake([DemoDataReset::class]);
 
-    $this->seed(DatabaseSeeder::class);
+    $this->seed();
 });
 
 it('seeds the demo user as the only user', function () {
@@ -28,6 +27,8 @@ it('replaces the demo data but keeps the demo user', function () {
     User::factory()->create();
     LiveVote::create(['visitor' => 'Visitor A', 'framework' => 'vue']);
 
+    $this->travel(1)->day();
+
     $this->artisan('demo:reset')->assertSuccessful();
 
     expect(User::pluck('id')->all())->toBe([$user->id])
@@ -37,11 +38,13 @@ it('replaces the demo data but keeps the demo user', function () {
         ->and(Note::where('user_id', '!=', $user->id)->count())->toBe(0)
         ->and(LiveVote::count())->toBe(0);
 
-    Event::assertDispatched(DemoDataReset::class, fn (DemoDataReset $event) => $event->resetAt === Organization::min('created_at'));
+    expect(DemoDataReset::resetAt())->toBe(now()->toDateTimeString());
+
+    Event::assertDispatched(DemoDataReset::class, fn (DemoDataReset $event) => $event->broadcastWith()['__inertia']['props']['demoResetAt'] === now()->toDateTimeString());
 });
 
 it('shares the reset time as a live prop', function () {
     $this->actingAs(User::first())
         ->get(route('dashboard'))
-        ->assertInertia(fn ($page) => $page->where('demoResetAt', Organization::min('created_at')));
+        ->assertInertia(fn ($page) => $page->where('demoResetAt', DemoDataReset::resetAt()));
 });

@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Events\DemoDataReset;
-use App\Models\Organization;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Middleware;
@@ -47,7 +46,7 @@ class HandleInertiaRequests extends Middleware
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             // Live on every page, so an open page notices when the demo data is reset
             'demoResetAt' => $request->user()
-                ? Inertia::live(fn () => Organization::min('created_at'), on: DemoDataReset::class)
+                ? Inertia::live(fn () => DemoDataReset::resetAt(), on: DemoDataReset::class)
                 : null,
         ];
     }

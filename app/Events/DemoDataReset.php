@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Organization;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -11,7 +12,14 @@ class DemoDataReset implements ShouldBroadcastNow
 {
     use Dispatchable;
 
-    public function __construct(public ?string $resetAt = null) {}
+    /**
+     * Get when the demo data was last reset. Only `demo:reset` creates
+     * organizations, so the oldest one marks the last reset.
+     */
+    public static function resetAt(): ?string
+    {
+        return Organization::min('created_at');
+    }
 
     /**
      * Get the channel the event should broadcast on.
@@ -30,7 +38,7 @@ class DemoDataReset implements ShouldBroadcastNow
     public function broadcastWith(): array
     {
         return Inertia::broadcastProps([
-            'demoResetAt' => $this->resetAt,
+            'demoResetAt' => static::resetAt(),
         ]);
     }
 }
