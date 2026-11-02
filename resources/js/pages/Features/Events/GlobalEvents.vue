@@ -1,6 +1,13 @@
+<script lang="ts">
+import { ref } from 'vue';
+
+// Lives at module scope so the log survives the remount on history navigation
+const eventLog = ref<string[]>([]);
+</script>
+
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import CodeBlock from '@/components/CodeBlock.vue';
 import FeatureCard from '@/components/FeatureCard.vue';
 import FeatureHeader from '@/components/FeatureHeader.vue';
@@ -14,7 +21,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Global Events' },
 ];
 
-const eventLog = ref<string[]>([]);
 const removers: (() => void)[] = [];
 
 function log(event: string, detail?: string) {
@@ -45,7 +51,12 @@ onMounted(() => {
             log('finish');
         }),
         router.on('navigate', (event) => {
-            log('navigate', event.detail.page.url);
+            const { type, cached } = event.detail;
+
+            log(
+                `navigate (${type}${cached ? ', cached' : ''})`,
+                event.detail.page.url,
+            );
         }),
         router.on('flash', (event) => {
             log('flash', JSON.stringify(event.detail.flash));
@@ -97,6 +108,12 @@ onUnmounted(() => {
                                 POST Action
                             </Button>
                             <Link
+                                href="/features/events/global-events?step=2"
+                                class="inline-flex items-center rounded-md border border-black/10 bg-background px-3 py-1.5 text-sm hover:bg-accent dark:border-white/10"
+                            >
+                                Visit With Query
+                            </Link>
+                            <Link
                                 href="/features/events/visit-callbacks"
                                 class="inline-flex items-center rounded-md border border-black/10 bg-background px-3 py-1.5 text-sm hover:bg-accent dark:border-white/10"
                             >
@@ -107,6 +124,22 @@ onUnmounted(() => {
                             Each action triggers a sequence of events: before →
                             start → success/error → finish → navigate. The
                             progress event only fires during file uploads.
+                        </p>
+                        <p
+                            class="flex items-start gap-2 text-xs text-muted-foreground"
+                        >
+                            <span
+                                class="shrink-0 rounded bg-indigo-500/10 px-2 py-1 text-[10px] leading-none font-semibold text-indigo-500"
+                                >v3.9</span
+                            >
+                            <span>
+                                The navigate event's
+                                <code>detail.type</code> tells you how the page
+                                was reached: <code>initial</code> on page load,
+                                <code>visit</code> for visits that add a history
+                                entry, and <code>history</code> for back and
+                                forward.
+                            </span>
                         </p>
 
                         <CodeBlock

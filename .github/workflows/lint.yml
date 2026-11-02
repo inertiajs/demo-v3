@@ -48,11 +48,8 @@ jobs:
       - name: Pint
         run: vendor/bin/pint
 
-      - name: Oxfmt
-        run: pnpm run format
-
-      - name: Oxlint
-        run: pnpm run lint
+      - name: Vite+ Check
+        run: pnpm run check:fix
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0

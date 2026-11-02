@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Sleep;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DataLoadingController
 {
@@ -113,11 +114,14 @@ class DataLoadingController
 
     public function polling(): Response
     {
-        Sleep::for(random_int(500, 3000))->milliseconds();
-
         return Inertia::render('Features/DataLoading/Polling', [
             'currentTime' => now()->toDateTimeString(),
-            'randomNumber' => random_int(1, 1000),
+            // Partial reloads that only ask for the current time skip the delay
+            'randomNumber' => function () {
+                Sleep::for(random_int(500, 3000))->milliseconds();
+
+                return random_int(1, 1000);
+            },
             'contactCount' => Contact::count(),
         ]);
     }
@@ -225,5 +229,24 @@ class DataLoadingController
                 'randomNumber' => random_int(1, 1000),
             ],
         ]);
+    }
+
+    public function bigIntegers(Request $request): Response
+    {
+        $preserve = $request->boolean('preserve', true);
+
+        return Inertia::render('Features/DataLoading/BigIntegers', [
+            'preserve' => $preserve,
+            'orderId' => 900719925474099988,
+            'expectedOrderId' => '900719925474099988',
+            'customerId' => 42,
+        ])->preserveBigIntegers($preserve);
+    }
+
+    public function submitBigInteger(Request $request): RedirectResponse
+    {
+        $request->validate(['id' => ['required', 'integer']]);
+
+        return Inertia::flash('receivedOrderId', (string) $request->integer('id'))->back();
     }
 }

@@ -4,7 +4,7 @@ import { initializeTheme } from './composables/useAppearance';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Inertia Kitchen Sink';
 
-createInertiaApp({
+void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     defaults: {
         visitOptions: (href, options) => ({

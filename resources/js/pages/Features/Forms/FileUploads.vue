@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
-import { Upload, X } from 'lucide-vue-next';
+import { Upload, X } from '@lucide/vue';
 import FeatureCard from '@/components/FeatureCard.vue';
 import FeatureHeader from '@/components/FeatureHeader.vue';
 import InputError from '@/components/InputError.vue';

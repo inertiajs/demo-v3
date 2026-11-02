@@ -26,7 +26,7 @@ the DOM but invisible — we read its textContent to get the raw code string.
 -->
 
 <script setup lang="ts">
-import { Check, Copy } from 'lucide-vue-next';
+import { Check, Copy } from '@lucide/vue';
 import { computed, ref, useSlots } from 'vue';
 
 const props = defineProps<{

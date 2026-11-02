@@ -23,7 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('use-form', [Feature\FormController::class, 'submitUseForm']);
 
             Route::get('form-component', [Feature\FormController::class, 'formComponent'])->name('form-component');
-            Route::post('form-component', [Feature\FormController::class, 'submitFormComponent']);
+            Route::post('form-component', [Feature\FormController::class, 'submitFormComponent'])->middleware('precognitive');
 
             Route::get('file-uploads', [Feature\FormController::class, 'fileUploads'])->name('file-uploads');
             Route::post('file-uploads', [Feature\FormController::class, 'submitFileUploads']);
@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Navigation
         Route::prefix('navigation')->name('navigation.')->group(function () {
-            Route::get('links', [Feature\NavigationController::class, 'links'])->name('links');
+            Route::match(['get', 'query'], 'links', [Feature\NavigationController::class, 'links'])->name('links');
             Route::match(['post', 'put', 'patch', 'delete'], 'links', [Feature\NavigationController::class, 'linksAction']);
 
             Route::get('preserve-state', [Feature\NavigationController::class, 'preserveState'])->name('preserve-state');
@@ -73,6 +73,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('instant-visits', [Feature\NavigationController::class, 'instantVisits'])->name('instant-visits');
             Route::get('instant-visit-target', [Feature\NavigationController::class, 'instantVisitTarget'])->name('instant-visit-target');
 
+            Route::get('query-visits', [Feature\NavigationController::class, 'queryVisits'])->name('query-visits');
+            Route::query('query-visits', [Feature\NavigationController::class, 'queryVisits']);
+
             Route::get('url-fragments', [Feature\NavigationController::class, 'urlFragments'])->name('url-fragments');
             Route::get('url-fragments/redirect-hash', [Feature\NavigationController::class, 'redirectWithHash']);
             Route::post('url-fragments/redirect-hash', [Feature\NavigationController::class, 'redirectWithHash']);
@@ -90,6 +93,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('prop-merging', [Feature\DataLoadingController::class, 'propMerging'])->name('prop-merging');
             Route::get('once-props/{page?}', [Feature\DataLoadingController::class, 'onceProps'])->name('once-props')->where('page', '[12]');
             Route::get('optional-props', [Feature\DataLoadingController::class, 'optionalProps'])->name('optional-props');
+            Route::get('big-integers', [Feature\DataLoadingController::class, 'bigIntegers'])->name('big-integers');
+            Route::post('big-integers', [Feature\DataLoadingController::class, 'submitBigInteger']);
         });
 
         // Prefetching

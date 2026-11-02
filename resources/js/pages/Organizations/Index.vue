@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { Building2, Search } from 'lucide-vue-next';
+import { Building2, Search } from '@lucide/vue';
 import { ref, watch } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
