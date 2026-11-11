@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Deferred, Form, Head, Link, router } from '@inertiajs/vue3';
-import { Building2, Heart, Mail, Pencil, Phone, Trash2 } from 'lucide-vue-next';
+import { Building2, Heart, Mail, Pencil, Phone, Trash2 } from '@lucide/vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {

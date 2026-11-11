@@ -137,6 +137,28 @@ function manualVisit(method: string) {
                             </Link>
                         </div>
 
+                        <div v-if="$page.props.queryMethod" class="space-y-2">
+                            <h4
+                                class="flex items-center gap-2 text-sm font-semibold"
+                            >
+                                QUERY as button
+                                <span
+                                    class="shrink-0 rounded bg-indigo-500/10 px-2 py-1 text-[10px] leading-none font-semibold text-indigo-500"
+                                    >v3.10</span
+                                >
+                            </h4>
+                            <Link
+                                href="/features/navigation/links"
+                                method="query"
+                                as="button"
+                                :data="{ search: 'Inertia' }"
+                                preserve-scroll
+                                class="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground hover:bg-primary/90"
+                            >
+                                QUERY Request
+                            </Link>
+                        </div>
+
                         <div class="space-y-2">
                             <h4 class="text-sm font-semibold">
                                 Link with data
@@ -204,6 +226,13 @@ function manualVisit(method: string) {
                                 size="sm"
                                 @click="manualVisit('delete')"
                                 >router.delete()</Button
+                            >
+                            <Button
+                                v-if="$page.props.queryMethod"
+                                variant="outline"
+                                size="sm"
+                                @click="manualVisit('query')"
+                                >router.query()</Button
                             >
                         </div>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, usePoll } from '@inertiajs/vue3';
-import { onUnmounted, ref } from 'vue';
+import { computed, onUnmounted, reactive, ref } from 'vue';
 import FeatureCard from '@/components/FeatureCard.vue';
 import FeatureHeader from '@/components/FeatureHeader.vue';
 import { Badge } from '@/components/ui/badge';
@@ -24,7 +24,6 @@ type PollMode = 'overlap' | 'cancel' | 'rest';
 const pollMode = ref<PollMode>('overlap');
 const pollCount = ref(0);
 const inFlight = ref(0);
-const isPolling = ref(false);
 
 const requestOptions = {
     onStart: () => inFlight.value++,
@@ -34,7 +33,7 @@ const requestOptions = {
     },
 };
 
-const polls: Record<PollMode, { start: () => void; stop: () => void }> = {
+const polls: Record<PollMode, ReturnType<typeof usePoll>> = {
     overlap: usePoll(2000, requestOptions, {
         autoStart: false,
         mode: 'overlap',
@@ -43,17 +42,17 @@ const polls: Record<PollMode, { start: () => void; stop: () => void }> = {
     rest: usePoll(2000, requestOptions, { autoStart: false, mode: 'rest' }),
 };
 
+const isPolling = computed(() => polls[pollMode.value].polling.value);
+
 function stopAll() {
-    (Object.values(polls) as { stop: () => void }[]).forEach((p) => p.stop());
+    Object.values(polls).forEach((p) => p.stop());
 }
 
 function togglePolling() {
     if (isPolling.value) {
         stopAll();
-        isPolling.value = false;
     } else {
         polls[pollMode.value].start();
-        isPolling.value = true;
     }
 }
 
@@ -71,6 +70,76 @@ function setMode(mode: PollMode) {
         polls[mode].start();
     }
 }
+
+type PollBackground = 'throttle' | 'pause' | 'continue';
+
+const backgroundRequests = reactive<
+    Record<PollBackground, { total: number; hidden: number }>
+>({
+    throttle: { total: 0, hidden: 0 },
+    pause: { total: 0, hidden: 0 },
+    continue: { total: 0, hidden: 0 },
+});
+
+function backgroundPoll(background: PollBackground) {
+    return usePoll(
+        1000,
+        {
+            only: ['currentTime'],
+            onStart: () => {
+                backgroundRequests[background].total++;
+
+                if (document.hidden) {
+                    backgroundRequests[background].hidden++;
+                }
+            },
+        },
+        { autoStart: false, background },
+    );
+}
+
+const backgroundPolls: Record<PollBackground, ReturnType<typeof usePoll>> = {
+    throttle: backgroundPoll('throttle'),
+    pause: backgroundPoll('pause'),
+    continue: backgroundPoll('continue'),
+};
+
+const isBackgroundPolling = computed(
+    () => backgroundPolls.throttle.polling.value,
+);
+
+function toggleBackgroundPolling() {
+    if (isBackgroundPolling.value) {
+        Object.values(backgroundPolls).forEach((p) => p.stop());
+
+        return;
+    }
+
+    Object.values(backgroundRequests).forEach((requests) => {
+        requests.total = 0;
+        requests.hidden = 0;
+    });
+
+    Object.values(backgroundPolls).forEach((p) => p.start());
+}
+
+const backgrounds: {
+    value: PollBackground;
+    description: string;
+}[] = [
+    {
+        value: 'throttle',
+        description: 'Default. Polls at 10% of the rate while hidden.',
+    },
+    {
+        value: 'pause',
+        description: 'Stops while hidden and resumes when you come back.',
+    },
+    {
+        value: 'continue',
+        description: 'Keeps polling at the full rate.',
+    },
+];
 
 onUnmounted(() => stopAll());
 
@@ -170,11 +239,15 @@ const modes: { value: PollMode; label: string; description: string }[] = [
                         <div class="grid grid-cols-2 gap-3 text-sm">
                             <div>
                                 Poll count:
-                                <strong>{{ pollCount }}</strong>
+                                <strong class="tabular-nums">{{
+                                    pollCount
+                                }}</strong>
                             </div>
                             <div>
                                 In flight:
-                                <strong>{{ inFlight }}</strong>
+                                <strong class="tabular-nums">{{
+                                    inFlight
+                                }}</strong>
                             </div>
                         </div>
 
@@ -215,17 +288,88 @@ const modes: { value: PollMode; label: string; description: string }[] = [
                                 <span class="text-sm font-medium"
                                     >Random Number</span
                                 >
-                                <Badge variant="secondary">{{
-                                    randomNumber
-                                }}</Badge>
+                                <Badge
+                                    variant="secondary"
+                                    class="tabular-nums"
+                                    >{{ randomNumber }}</Badge
+                                >
                             </div>
                             <div class="flex items-center justify-between">
                                 <span class="text-sm font-medium"
                                     >Contact Count</span
                                 >
-                                <Badge variant="secondary">{{
-                                    contactCount
-                                }}</Badge>
+                                <Badge
+                                    variant="secondary"
+                                    class="tabular-nums"
+                                    >{{ contactCount }}</Badge
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </FeatureCard>
+
+                <FeatureCard
+                    class="lg:col-span-2"
+                    title="Background Tabs"
+                    badge="v3.9"
+                >
+                    <template #description>
+                        The <code class="text-xs">background</code> option
+                        controls polling while the tab is hidden. Start all
+                        three, switch to another tab for a few seconds, then
+                        come back.
+                    </template>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <Button
+                                @click="toggleBackgroundPolling"
+                                :variant="
+                                    isBackgroundPolling
+                                        ? 'destructive'
+                                        : 'default'
+                                "
+                            >
+                                {{
+                                    isBackgroundPolling
+                                        ? 'Stop Background Polls'
+                                        : 'Start Background Polls'
+                                }}
+                            </Button>
+                            <span class="text-xs text-muted-foreground"
+                                >Each poll runs every second.</span
+                            >
+                        </div>
+
+                        <div class="grid gap-3 sm:grid-cols-3">
+                            <div
+                                v-for="b in backgrounds"
+                                :key="b.value"
+                                class="space-y-1 rounded-lg border border-black/5 p-3 dark:border-white/5"
+                            >
+                                <code class="text-sm font-semibold">{{
+                                    b.value
+                                }}</code>
+                                <p class="text-xs text-muted-foreground">
+                                    {{ b.description }}
+                                </p>
+                                <p class="pt-1 text-sm">
+                                    Total:
+                                    <strong
+                                        class="tabular-nums"
+                                        :data-test="`total-${b.value}`"
+                                        >{{
+                                            backgroundRequests[b.value].total
+                                        }}</strong
+                                    >
+                                    · While hidden:
+                                    <strong
+                                        class="tabular-nums"
+                                        :data-test="`hidden-${b.value}`"
+                                        >{{
+                                            backgroundRequests[b.value].hidden
+                                        }}</strong
+                                    >
+                                </p>
                             </div>
                         </div>
                     </div>

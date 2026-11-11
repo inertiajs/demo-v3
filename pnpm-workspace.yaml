@@ -6,3 +6,9 @@ minimumReleaseAgeExclude:
     - '@inertiajs/core'
     - '@inertiajs/vite'
     - '@inertiajs/vue3'
+
+publicHoistPattern:
+    - '@inertiajs/core'
+
+overrides:
+    vite: 'npm:@voidzero-dev/vite-plus-core@1.4.0'

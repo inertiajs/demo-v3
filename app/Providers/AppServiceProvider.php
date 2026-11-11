@@ -5,6 +5,7 @@ namespace App\Providers;
 use Carbon\CarbonImmutable;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Inertia\ExceptionResponse;
 use Inertia\Inertia;
+use Inertia\Support\Header;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -63,10 +65,21 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Configure rate limiting for the application.
+     *
+     * Partial reloads get their own, higher limit so the polling demos don't hit it.
      */
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for('global', fn () => Limit::perMinute(120)->by(request()->ip()));
+        RateLimiter::for('global', function (Request $request): Limit {
+            if ($request->hasHeader(Header::PARTIAL_COMPONENT)) {
+                return Limit::perMinute(600)->by('partial|'.$request->ip());
+            }
+
+            return Limit::perMinute(120)->by($request->ip());
+        });
+
+        // The live props demo broadcasts to every visitor, so keep each one from flooding the channel
+        RateLimiter::for('broadcasts', fn (Request $request): Limit => Limit::perMinute(30)->by($request->ip()));
     }
 
     /**

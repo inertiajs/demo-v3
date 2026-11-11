@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import {
     BookOpen,
     ContactRound,
@@ -15,7 +15,7 @@ import {
     AlertTriangle,
     Wifi,
     Save,
-} from 'lucide-vue-next';
+} from '@lucide/vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavSection from '@/components/NavSection.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -58,6 +58,8 @@ const crmSection: NavSectionType = {
         },
     ],
 };
+
+const queryMethod = usePage().props.queryMethod;
 
 const featuresSection: NavSectionType = {
     label: 'Kitchen Sink',
@@ -137,6 +139,15 @@ const featuresSection: NavSectionType = {
                     href: '/features/navigation/url-fragments',
                     badge: 'v3',
                 },
+                ...(queryMethod
+                    ? [
+                          {
+                              title: 'QUERY Visits',
+                              href: '/features/navigation/query-visits',
+                              badge: 'v3.10',
+                          },
+                      ]
+                    : []),
             ],
         },
         {
@@ -171,6 +182,16 @@ const featuresSection: NavSectionType = {
                 {
                     title: 'Optional Props',
                     href: '/features/data-loading/optional-props',
+                },
+                {
+                    title: 'Big Integers',
+                    href: '/features/data-loading/big-integers',
+                    badge: 'v3.8',
+                },
+                {
+                    title: 'Live Props',
+                    href: '/features/data-loading/live-props',
+                    badge: 'v3.11',
                 },
             ],
         },

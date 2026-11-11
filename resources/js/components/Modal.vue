@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Layer } from '@inertiajs/vue3';
-import { X } from 'lucide-vue-next';
+import { X } from '@lucide/vue';
 import { computed } from 'vue';
 import { Button } from '@/components/ui/button';
 

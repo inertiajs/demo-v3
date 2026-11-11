@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { Timer, Hash } from 'lucide-vue-next';
+import { Timer, Hash } from '@lucide/vue';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import FeatureHeader from '@/components/FeatureHeader.vue';
 import { Badge } from '@/components/ui/badge';
